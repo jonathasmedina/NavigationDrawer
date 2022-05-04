@@ -21,6 +21,7 @@ biblioteca de ícones:
 2) MainActivity.java - adicionar o id do item criado na lista para detectar clique;
 
 3) navigation/mobile_navigation: adicionar novo fragment (adicionar via aba de design ou code), adicionar id, name, layout. 
+
 *** IMPORTANTE ***
 - id = item criado no grupo no passo 1!!
 - name = nome do arquivo Java referente ao Fragment que será criado;
