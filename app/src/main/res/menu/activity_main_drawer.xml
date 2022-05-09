@@ -18,7 +18,7 @@
             android:title="@string/menu_slideshow" />
         <item
             android:id="@+id/nav_meuFrag"
-            android:icon="@android:drawable/ic_btn_speak_now"
+            android:icon="@drawable/account_supervisor"
             android:title="Meu Fragment" />
 
 
