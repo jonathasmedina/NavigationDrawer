@@ -1,5 +1,7 @@
+
 package com.example.navigationdrawer.ui.meuFragment;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.navigationdrawer.MainActivity;
 import com.example.navigationdrawer.R;
+import com.example.navigationdrawer.Usuario;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +24,10 @@ import com.example.navigationdrawer.R;
  * create an instance of this fragment.
  */
 public class MeuFragment extends Fragment {
+
+
+    private EditText editTextId_, editTextNome_, editTextEmail_;
+    private Button btInserir_, btListar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,6 +73,50 @@ public class MeuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meu, container, false);
+        View view = inflater.inflate(R.layout.fragment_meu, container, false);
+
+
+        editTextId_ = view.findViewById(R.id.editTextId);
+        editTextNome_ = view.findViewById(R.id.editTextNome);
+        editTextEmail_ = view.findViewById(R.id.editTextEmail);
+        btInserir_ = view.findViewById(R.id.buttonInsertUsuario);
+        btListar = view.findViewById(R.id.buttonListarUsuarios);
+
+        btListar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               List<Usuario> usuarioList =  MainActivity.myAppDatabase.myDao().listarUsuarios();
+
+               String info = "";
+
+               for(Usuario usuario: usuarioList){
+                   info = info + "\n" + usuario.getNome();
+               }
+
+               AlertDialog.Builder janela = new AlertDialog.Builder(getContext());
+               janela.setMessage(info);
+               janela.setTitle("Informação");
+               janela.show();
+
+            }
+        });
+
+        btInserir_.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Usuario usuario = new Usuario();
+
+                usuario.setId(Integer.parseInt(editTextId_.getText().toString()));
+                usuario.setNome(editTextNome_.getText().toString());
+                usuario.setEmail(editTextEmail_.getText().toString());
+
+                MainActivity.myAppDatabase.myDao().insertUsuario(usuario);
+
+            }
+        });
+
+
+
+        return view;
     }
 }
